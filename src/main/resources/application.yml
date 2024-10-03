@@ -1,0 +1,40 @@
+spring:
+  main:
+    # 关闭 spring logo
+    banner-mode: off
+  datasource:
+    # 数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/fzDB?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: root
+mybatis-plus:
+  # 给需要在 mapper.xml 使用的类起别名，不配置的话，需要写全类名
+  type-aliases-package: com.fzy.fzprj.bean
+  mapper-locations: classpath*:mappers/*.xml
+  global-config:
+    # 关闭 mybatis plus logo
+    banner: false
+    db-config:
+      # 主键生成规则
+      # auto: 数据库自增
+      # assign_id: 使用雪花算法生成主键（要求主键为bigint类型），默认情况
+      # assign_uuid: 使用 UUID 生成主键
+      id-type: auto
+      # 全局设置逻辑删除字段和表示删除/未删除的值
+      logic-delete-field: status
+      logic-delete-value: 0
+      logic-not-delete-value: 1
+  configuration:
+    # 设置日志实现
+    # StdOutImpl 会在控制台输出 sql 语句
+    # Log4j2Impl 会在 log4j2.xml 配置的日志文件中输出 sql 语句
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 下划线转驼峰
+    # 这个配置解决的是 select 语句查询结构字段名和实体类属性名不一致的问题
+    # 这个配置默认为 true
+    map-underscore-to-camel-case: true
+server:
+  port: 8081
+  servlet:
+    context-path: /
